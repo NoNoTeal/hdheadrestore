@@ -4,8 +4,10 @@ import com.mojang.authlib.yggdrasil.YggdrasilMinecraftSessionService;
 import org.slf4j.Logger;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -23,8 +25,15 @@ public class YggdrasilMinecraftSessionServiceMixin {
             ".pornhub.com"
     };
 
-    @Overwrite
-    private static boolean isAllowedTextureDomain(final String url) {
+    /**
+     * Yes, I could use an overwrite here but that fucks up other mods that want to suck this function's dick.
+     */
+    @Inject(
+            method = "isAllowedTextureDomain",
+            at = @At("RETURN"),
+            cancellable = true
+    )
+    private static void isAllowedTextureDomain(String url, CallbackInfoReturnable<Boolean> cir) {
         URI uri;
 
         try {
@@ -34,8 +43,8 @@ public class YggdrasilMinecraftSessionServiceMixin {
         }
 
         final String domain = uri.getHost();
-        // LOGGER.info("HD Heads Checkout - " + url);
-        return isDomainOnList(domain, ALLOWED_DOMAINS) && !isDomainOnList(domain, BLOCKED_DOMAINS);
+        LOGGER.info("HD Heads Checkout - " + uri);
+        cir.setReturnValue(isDomainOnList(domain, ALLOWED_DOMAINS) && !isDomainOnList(domain, BLOCKED_DOMAINS));
     }
 
     @Shadow

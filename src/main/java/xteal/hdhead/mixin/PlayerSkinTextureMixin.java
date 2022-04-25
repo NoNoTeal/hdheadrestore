@@ -2,20 +2,24 @@ package xteal.hdhead.mixin;
 
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.texture.PlayerSkinTexture;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerSkinTexture.class)
 public class PlayerSkinTextureMixin {
 
     /**
-     * @author
-     * xTeal
+     * Overwrite also seems appropriate here but I'm just too stupid on how to modify the variables.
      */
-    @Overwrite @Nullable
-    private NativeImage remapTexture(NativeImage image) {
+    @Inject(
+            method = "remapTexture",
+            at = @At("HEAD"),
+            cancellable = true
+    )
+    private void remapTexture(NativeImage image, CallbackInfoReturnable<NativeImage> cir) {
         boolean bl;
         bl = image.getHeight() == 32;
         if (bl) {
@@ -43,7 +47,7 @@ public class PlayerSkinTextureMixin {
         }
         stripAlpha(image, 0, 16, 64, 32);
         stripAlpha(image, 16, 48, 48, 64);
-        return image;
+        cir.setReturnValue(image);
     }
 
     @Shadow
