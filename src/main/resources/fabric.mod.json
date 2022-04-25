@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "hdhead",
+  "version": "${version}",
+  "name": "Hdhead",
+  "description": "Allows more HD Head production",
+  "authors": [
+    "xTeal"
+  ],
+  "contact": {
+    "website": "https://github.com/NoNoTeal",
+    "repo": "https://github.com/NoNoTeal/hdheadrestore"
+  },
+  "license": "MIT",
+  "icon": "assets/hdhead/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "xteal.hdhead.HDHeads"
+    ]
+  },
+  "mixins": [
+    "hdhead.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.2",
+    "fabric": "*",
+    "minecraft": "1.18.2"
+  }
+}

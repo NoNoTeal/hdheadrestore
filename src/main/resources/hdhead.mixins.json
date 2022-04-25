@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "xteal.hdhead.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+    "YggdrasilMinecraftSessionServiceMixin",
+    "PlayerSkinTextureMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
