@@ -9,7 +9,8 @@
   ],
   "contact": {
     "website": "https://github.com/NoNoTeal",
-    "repo": "https://github.com/NoNoTeal/hdheadrestore"
+    "homepage": "https://github.com/NoNoTeal/hdheadrestore",
+    "sources": "https://github.com/NoNoTeal/hdheadrestore"
   },
   "license": "MIT",
   "icon": "assets/hdhead/icon.png",
